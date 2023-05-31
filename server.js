@@ -16,7 +16,7 @@ const routes = require('./routes')
 const path = require('path')
 // const helmet = require('helmet')
 const csfr = require('csurf')
-const { middlewareGlobal, checkCsfrError, csfrMiddleware } = require('./src/middlewares/middleware')
+const { middlewareGlobal, checkCsrfError, csrfMiddleware } = require('./src/middlewares/middleware')
 
 // app.use(helmet())
 
@@ -45,8 +45,8 @@ app.set('view engine', 'ejs')
 /app.use(csfr())
 // nossos proprios middlewares
 app.use(middlewareGlobal)
-app.use(checkCsfrError)
-app.use(csfrMiddleware)
+app.use(checkCsrfError)
+app.use(csrfMiddleware)
 app.use(routes)
 
 app.on('pronto', () => {
