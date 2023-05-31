@@ -1,22 +1,13 @@
 const express = require('express')
 const route = express.Router()
 const homeController = require('./src/controllers/homeController')
-const contatoController = require('./src/controllers/contatoController')
-
-// function meuMiddleware(req, res, next) {
-//     console.log()
-//     console.log('Passei no seu middleware')
-//     console.log()
-//     next()
-// }
+const loginController = require('./src/controllers/loginController')
 
 // rotas da home
-route.get('/', homeController.paginaInicial, function(req, res, next) {
-    
-})
-route.post('/', homeController.trataPost)
+route.get('/', homeController.index)
 
-// rotas de contato
-route.get('/contato', contatoController.paginaInicial)
+// Rotas de login
+
+route.get('/login/index', loginController.index)
 
 module.exports = route

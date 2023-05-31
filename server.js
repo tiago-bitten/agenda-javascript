@@ -15,8 +15,8 @@ const flash = require('connect-flash')
 const routes = require('./routes')
 const path = require('path')
 // const helmet = require('helmet')
-// const csfr = require('csurf')
-const { middlewareGlobal } = require('./src/middlewares/middleware')
+const csfr = require('csurf')
+const { middlewareGlobal, checkCsfrError, csfrMiddleware } = require('./src/middlewares/middleware')
 
 // app.use(helmet())
 
@@ -42,11 +42,11 @@ app.set('views', path.resolve(__dirname, 'src', 'views'))
 app.set('view engine', 'ejs')
 
 
-// app.use(csfr())
+/app.use(csfr())
 // nossos proprios middlewares
 app.use(middlewareGlobal)
-// app.use(checkCsfrError)
-// app.use(csfrMiddleware)
+app.use(checkCsfrError)
+app.use(csfrMiddleware)
 app.use(routes)
 
 app.on('pronto', () => {
