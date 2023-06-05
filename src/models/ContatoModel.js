@@ -65,7 +65,7 @@ class Contato {
         this.contato = await ContatoModel.findByIdAndUpdate(id, this.body, { new: true })
     }
 
-    async buscaPorId(id) {
+    static async buscaPorId(id) {
         if (typeof id !== 'string') return
 
         const contato = await ContatoModel.findById(id)
@@ -76,6 +76,13 @@ class Contato {
         const contatos = await ContatoModel.find()
             .sort({ criadoEm: -1 })
         return contatos
+    }
+
+    static async delete(id) {
+        if (typeof id !== 'string') return
+
+        const contato = await ContatoModel.findOneAndDelete(id)
+        return contato
     }
 }
 

@@ -31,9 +31,7 @@ exports.editIndex = async (req, res) => {
         return res.render('404')
     }
 
-    const contatoFunc = new Contato(req.body)
-
-    const contato = await contatoFunc.buscaPorId(req.params.id)
+    const contato = await Contato.buscaPorId(req.params.id)
     if (!(contato)) return res.render('404')
 
     res.render('contato', { contato })
@@ -62,4 +60,18 @@ exports.edit = async (req, res) => {
         console.log(e)
         return res.render('404')
     }
+}
+
+exports.delete = async (req, res) => {
+    if (!(req.params.id)) {
+        return res.render('404')
+    }
+
+
+    const contato = await Contato.delete(req.params.id)
+    if (!(contato)) return res.render('404')
+
+    req.flash('success', 'Contato apagado com sucesso')
+    req.session.save(() => res.redirect('back'))
+    return
 }
