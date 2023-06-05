@@ -56,13 +56,6 @@ class Contato {
         }
     }
 
-    async buscaPorId(id) {
-        if (typeof id !== 'string') return
-
-        const user = await ContatoModel.findById(id)
-        return user
-    }
-
     async edit(id) {
         if (typeof id !== 'string') return
         this.valida()
@@ -70,6 +63,19 @@ class Contato {
         if (this.errors.length > 0) return
 
         this.contato = await ContatoModel.findByIdAndUpdate(id, this.body, { new: true })
+    }
+
+    async buscaPorId(id) {
+        if (typeof id !== 'string') return
+
+        const contato = await ContatoModel.findById(id)
+        return contato
+    }
+
+    static async buscaContatos() {
+        const contatos = await ContatoModel.find()
+            .sort({ criadoEm: -1 })
+        return contatos
     }
 }
 
